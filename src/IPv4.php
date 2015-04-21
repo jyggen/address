@@ -34,26 +34,41 @@ class IPv4 implements AddressInterface
      */
     public static function parse($address)
     {
-        if (strpos($address, '.') !== false) {
-            $address = strtolower($address);
-            $octets  = [];
-            foreach (explode('.', $address) as $octet) {
-                $hexOctet = sscanf($octet, '0x%02X');
-                if (empty($hexOctet) === false and $hexOctet[0] !== null) {
-                    $octets[] = $hexOctet[0];
-                } elseif ('0'.decoct(octdec(substr($octet, 1))) == $octet) {
-                    $octets[] = sscanf($octet, '%04o')[0];
-                } else {
-                    $octets[] = $octet;
-                }
-            }
+        $address = (strpos($address, '.') !== false) ? static::parseOctets($address) : static::parseNumeric($address);
 
-            $address = implode('.', $octets);
-        } elseif (is_numeric($address) === true or substr($address, 0, 2) === '0x') { // substr for PHP 7 hex support
+        return new static($address);
+    }
+
+    protected static function parseNumeric($address)
+    {
+
+        if ('0x'.dechex(hexdec(substr($address, 2))) == $address) {
+            $address = long2ip(hexdec(substr($address, 2)));
+        } elseif ('0'.decoct(octdec(substr($address, 1))) == $address)  {
+            $address = long2ip(octdec(substr($address, 1)));
+        } elseif (is_numeric($address) === true) {
             $address = long2ip($address);
         }
 
-        return new static($address);
+        return $address;
+    }
+
+    protected static function parseOctets($address)
+    {
+        $address = strtolower($address);
+        $octets  = [];
+        foreach (explode('.', $address) as $octet) {
+            $hexOctet = sscanf($octet, '0x%02x');
+            if (empty($hexOctet) === false and $hexOctet[0] !== null) {
+                $octets[] = $hexOctet[0];
+            } elseif ('0'.decoct(octdec(substr($octet, 1))) == $octet) {
+                $octets[] = sscanf($octet, '%04o')[0];
+            } else {
+                $octets[] = $octet;
+            }
+        }
+
+        return implode('.', $octets);
     }
 
     /**
