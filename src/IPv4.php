@@ -9,7 +9,6 @@ class IPv4 implements AddressInterface
 
     /**
      * @param string $readable
-     * @return void
      */
     public function __construct($readable)
     {
@@ -82,7 +81,7 @@ class IPv4 implements AddressInterface
     }
 
     /**
-     * @param boolean $dotted
+     * @param boolean $asString
      * @return mixed
      */
     public function toDec($asString = false)

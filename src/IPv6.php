@@ -9,7 +9,6 @@ class IPv6 implements AddressInterface
 
     /**
      * @param string $readable
-     * @return void
      */
     public function __construct($readable)
     {
