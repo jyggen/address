@@ -34,6 +34,7 @@ class IPv4 implements AddressInterface
      */
     public static function parse($address)
     {
+        $address = strtolower($address);
         $address = (strpos($address, '.') !== false) ? static::parseOctets($address) : static::parseNumeric($address);
 
         return new static($address);
@@ -46,7 +47,7 @@ class IPv4 implements AddressInterface
             $address = long2ip(hexdec(substr($address, 2)));
         } elseif ('0'.decoct(octdec(substr($address, 1))) == $address)  {
             $address = long2ip(octdec(substr($address, 1)));
-        } elseif (is_numeric($address) === true) {
+        } elseif (is_numeric($address) === true or substr($address, 0, 1) == '0') {
             $address = long2ip($address);
         }
 
@@ -55,7 +56,6 @@ class IPv4 implements AddressInterface
 
     protected static function parseOctets($address)
     {
-        $address = strtolower($address);
         $octets  = [];
         foreach (explode('.', $address) as $octet) {
             $hexOctet = sscanf($octet, '0x%02x');
