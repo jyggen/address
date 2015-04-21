@@ -46,7 +46,7 @@ class IPv6 implements AddressInterface
      */
     public function getMaxPrefixLength()
     {
-        return static::PREFIX_LENGTH;
+        return static::MAX_PREFIX_LENGTH;
     }
 
     /**

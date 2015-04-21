@@ -39,7 +39,8 @@ class IPv4 implements AddressInterface
             $address = strtolower($address);
             $octets  = [];
             foreach (explode('.', $address) as $octet) {
-                if (empty($hexOctet = sscanf($octet, '0x%02x')) === false and $hexOctet[0] !== null) {
+                $hexOctet = sscanf($octet, '0x%02x');
+                if (empty($hexOctet) === false and $hexOctet[0] !== null) {
                     $octets[] = $hexOctet[0];
                 } elseif ('0'.decoct(octdec(substr($octet, 1))) == $octet) {
                     $octets[] = sscanf($octet, '%04o')[0];
@@ -69,7 +70,7 @@ class IPv4 implements AddressInterface
      */
     public function getMaxPrefixLength()
     {
-        return static::PREFIX_LENGTH;
+        return static::MAX_PREFIX_LENGTH;
     }
 
     /**
