@@ -50,7 +50,7 @@ class IPv4 implements AddressInterface
             }
 
             $address = implode('.', $octets);
-        } elseif (is_numeric($address) === true or substr($address, 0, 2) === '0x') {
+        } elseif (is_numeric($address) === true or substr($address, 0, 2) === '0x') { // substr for PHP 7 hex support
             $address = long2ip($address);
         }
 
