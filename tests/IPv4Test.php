@@ -17,12 +17,18 @@ class IPv4Test extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider fullTestAddressProvider
      */
-    public function testAddressCanBeCreated($readable, $dotHex, $dotOct, $hex, $dec, $oct)
+    public function testAddressCanBeInstantiated($readable, $dotHex, $dotOct, $hex, $dec, $oct)
     {
         $address = new IPv4($readable);
         $this->assertInstanceOf('Boo\Address\IPv4', $address);
         $this->assertInstanceOf('Boo\Address\AddressInterface', $address);
+    }
 
+    /**
+     * @dataProvider fullTestAddressProvider
+     */
+    public function testAddressCanBeCreated($readable, $dotHex, $dotOct, $hex, $dec, $oct)
+    {
         $address = IPv4::create($readable);
         $this->assertInstanceOf('Boo\Address\IPv4', $address);
         $this->assertInstanceOf('Boo\Address\AddressInterface', $address);
@@ -31,23 +37,53 @@ class IPv4Test extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider fullTestAddressProvider
      */
-    public function testAddressCanBeParsed($readable, $dotHex, $dotOct, $hex, $dec, $oct)
+    public function testAddressCanBeParsedFromReadable($readable, $dotHex, $dotOct, $hex, $dec, $oct)
     {
         $address = IPv4::parse($readable);
         $this->assertSame($readable, $address->toReadable());
+    }
 
+    /**
+     * @dataProvider fullTestAddressProvider
+     */
+    public function testAddressCanBeParsedFromDottedHexadecimal($readable, $dotHex, $dotOct, $hex, $dec, $oct)
+    {
         $address = IPv4::parse($dotHex);
         $this->assertSame($readable, $address->toReadable());
+    }
 
+    /**
+     * @dataProvider fullTestAddressProvider
+     */
+    public function testAddressCanBeParsedFromDottedOctal($readable, $dotHex, $dotOct, $hex, $dec, $oct)
+    {
         $address = IPv4::parse($dotOct);
         $this->assertSame($readable, $address->toReadable());
+    }
 
+    /**
+     * @dataProvider fullTestAddressProvider
+     */
+    public function testAddressCanBeParsedFromHexadecimal($readable, $dotHex, $dotOct, $hex, $dec, $oct)
+    {
         $address = IPv4::parse($hex);
         $this->assertSame($readable, $address->toReadable());
+    }
 
+    /**
+     * @dataProvider fullTestAddressProvider
+     */
+    public function testAddressCanBeParsedFromDecimal($readable, $dotHex, $dotOct, $hex, $dec, $oct)
+    {
         $address = IPv4::parse($dec);
         $this->assertSame($readable, $address->toReadable());
+    }
 
+    /**
+     * @dataProvider fullTestAddressProvider
+     */
+    public function testAddressCanBeParsedFromOctal($readable, $dotHex, $dotOct, $hex, $dec, $oct)
+    {
         $address = IPv4::parse($oct);
         $this->assertSame($readable, $address->toReadable());
     }
@@ -137,7 +173,7 @@ class IPv4Test extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider simpleTestAddressProvider
      */
-    public function testAddressIsWorking($readable)
+    public function testAddressIsValidAndParsable($readable)
     {
         $address = new IPv4($readable);
 
@@ -151,7 +187,14 @@ class IPv4Test extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($readable, IPv4::parse($address->toOct())->toReadable());
         $this->assertSame($readable, IPv4::parse($address->toOct(true))->toReadable());
+    }
 
+    /**
+     * @dataProvider simpleTestAddressProvider
+     */
+    public function testAddressIsParsableWithMixedOctets($readable)
+    {
+        $address  = new IPv4($readable);
         $decParts = explode('.', $address->toReadable());
         $hexParts = explode('.', $address->toHex(true));
         $octParts = explode('.', $address->toOct(true));
