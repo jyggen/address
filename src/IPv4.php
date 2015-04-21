@@ -41,7 +41,7 @@ class IPv4 implements AddressInterface
             $address = strtolower($address);
             $octets  = [];
             foreach (explode('.', $address) as $octet) {
-                $hexOctet = sscanf($octet, '0x%02x');
+                $hexOctet = sscanf($octet, '0x%02X');
                 if (empty($hexOctet) === false and $hexOctet[0] !== null) {
                     $octets[] = $hexOctet[0];
                 } elseif ('0'.decoct(octdec(substr($octet, 1))) == $octet) {
@@ -52,7 +52,7 @@ class IPv4 implements AddressInterface
             }
 
             $address = implode('.', $octets);
-        } elseif (substr($address, 0, 2) === '0x') { // HHVM/PHP7 fix. PHP 5.* catches this on is_numeric().
+        } elseif (substr($address, 0, 2) === '0x') { // PHP 7 removed hexadecimal support from is_numeric().
             $address = vsprintf('%d.%d.%d.%d', sscanf($address, '0x%02X%02X%02X%02X'));
         }
 
