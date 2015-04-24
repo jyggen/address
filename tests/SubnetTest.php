@@ -7,7 +7,7 @@ use Boo\Address\Subnet;
 class SubnetTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException Boo\Address\InvalidSubnetException
+     * @expectedException Boo\Address\Exception\InvalidSubnetException
      */
     public function testInvalidAddressThrowsException()
     {

@@ -1,5 +1,5 @@
 <?php
-namespace Boo\Address;
+namespace Boo\Address\Exception;
 
 use Exception;
 

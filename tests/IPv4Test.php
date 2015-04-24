@@ -7,7 +7,7 @@ use Boo\Address\IPv4;
 class IPv4Test extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException Boo\Address\InvalidAddressException
+     * @expectedException Boo\Address\Exception\InvalidAddressException
      */
     public function testInvalidAddressThrowsException()
     {

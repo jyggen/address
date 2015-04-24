@@ -1,6 +1,8 @@
 <?php
 namespace Boo\Address;
 
+use Boo\Address\Exception\InvalidAddressException;
+
 class IPv4 implements AddressInterface
 {
     const MAX_PREFIX_LENGTH = 32;

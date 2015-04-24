@@ -1,6 +1,8 @@
 <?php
 namespace Boo\Address;
 
+use Boo\Address\Exception\InvalidSubnetException;
+
 class Subnet
 {
     public function __construct(AddressInterface $address, $netmask = null)
