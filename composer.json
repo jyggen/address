@@ -1,33 +1,33 @@
 {
     "name": "boo/address",
     "description": "Library to work with IPv4 and IPv6 addresses.",
-    "keywords": [
-        "ip",
-        "ipv4",
-        "ipv6",
-        "address"
-    ],
+    "type": "library",
+    "keywords": ["ip", "ipv4", "ipv6", "address", "subnet"],
     "homepage": "https://github.com/jyggen/address",
     "license": "MIT",
     "authors": [
         {
             "name": "Jonas Stendahl",
             "email": "jonas.stendahl@gmail.com",
-            "homepage": "https://jyggen.com/",
-            "role": "Developer"
+            "homepage": "https://jyggen.com"
         }
     ],
+    "support": {
+        "issues": "https://github.com/jyggen/address/issues",
+        "source": "https://github.com/jyggen/address"
+    },
     "require": {
-        "php" : ">=5.4.0"
+        "php" : ">=5.4"
     },
     "require-dev": {
-        "phpunit/phpunit" : "4.*",
-        "scrutinizer/ocular": "~1.1"
+        "apigen/apigen": "~4.0",
+        "jakub-onderka/php-parallel-lint": "^0.9.0",
+        "phpunit/phpunit": "~4.0",
+        "satooshi/php-coveralls": "^0.6.0",
+        "squizlabs/php_codesniffer": "~2.0"
     },
     "autoload": {
-        "psr-4": {
-            "Boo\\Address\\": "src"
-        }
+        "psr-4": {"Boo\\Address\\": "src"}
     },
     "autoload-dev": {
         "psr-4": {

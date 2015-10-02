@@ -6,14 +6,22 @@ php:
   - 5.6
   - 7.0
   - hhvm
-  - hhvm-nightly
+
+sudo: false
+
+env:
+  - COMPOSER_OPTS="--no-interaction --prefer-dist"
+  - COMPOSER_OPTS="--no-interaction --prefer-dist "--prefer-lowest"
 
 before_script:
   - travis_retry composer self-update
-  - travis_retry composer install --no-interaction --prefer-source
+  - travis_retry composer install $COMPOSER_OPTS
 
 script:
-  - phpunit --coverage-text --coverage-clover=coverage.clover
+  - mkdir -p build/logs
+  - ./vendor/bin/parallel-lint src tests
+  - ./vendor/bin/phpunit --coverage-text
+  - ./vendor/bin/phpcs src --standard=psr2 -sp
 
 after_script:
-  - bash -c 'if [ "$TRAVIS_PHP_VERSION" != "7.0" ]; then php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover; fi;'
+  - php vendor/bin/coveralls
