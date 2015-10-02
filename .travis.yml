@@ -10,12 +10,12 @@ php:
 sudo: false
 
 env:
-  - COMPOSER_OPTS="--no-interaction --prefer-dist"
-  - COMPOSER_OPTS="--no-interaction --prefer-dist "--prefer-lowest"
+  - COMPOSER_OPTS=""
+  - COMPOSER_OPTS="--prefer-lowest"
 
 before_script:
   - travis_retry composer self-update
-  - travis_retry composer install $COMPOSER_OPTS
+  - travis_retry composer install --no-interaction --prefer-dist $COMPOSER_OPTS
 
 script:
   - mkdir -p build/logs

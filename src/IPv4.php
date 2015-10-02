@@ -45,9 +45,9 @@ class IPv4 implements AddressInterface
     protected static function parseNumeric($address)
     {
 
-        if ('0x'.dechex(hexdec(substr($address, 2))) == $address) {
+        if ('0x'.dechex(hexdec(substr($address, 2))) === $address) {
             $address = long2ip(hexdec(substr($address, 2)));
-        } elseif ('0'.decoct(octdec(substr($address, 1))) == $address)  {
+        } elseif ('0'.decoct(octdec(substr($address, 1))) === $address) {
             $address = long2ip(octdec(substr($address, 1)));
         } elseif (is_numeric($address) === true or substr($address, 0, 1) == '0') {
             $address = long2ip($address);
